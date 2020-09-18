@@ -57,7 +57,7 @@ const server = http.createServer(async (req, res) => {
     res.setHeader('Location', '/items');
     res.writeHead(302);
   }
-
+      // Will handle POST to ....../items/indexNumber
   else if (req.url.startsWith('/items/') && req.method === 'POST') {
     const index = Number.parseInt(req.url.substring(7)) - 1;
     items[index].isComplete = true;
