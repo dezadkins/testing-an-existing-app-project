@@ -9,10 +9,41 @@ describe("The getBodyFromRequest function", () => {
   });
 
   it('returns an empty string for no body', done => {
-    expect.fail('please write this test');
-  });
+    let bodyRequest = getBodyFromRequest(fakeReq)
 
-  it('returns the data read from the stream', done => {
-    expect.fail('please write this test');
+    fakeReq.emit('end')
+
+    bodyRequest
+      .then(body => {
+        if(body === ""){
+          done()
+        }else{
+          done(`Failed. Got ${body}`)
+        }
+      });
+    });
+
+
+    it('returns the data read from the stream', done => {
+      let bodyRequest = getBodyFromRequest(fakeReq);
+      let data1 = "This is some";
+      let data2 = "Data from the browser";
+
+      fakeReq.emit('data', data1);
+      fakeReq.emit('data', data2);
+
+      fakeReq.emit('end');
+
+      bodyRequest
+      .then(body => {
+        if(body === (data1 + data2)){
+          done()
+        }else{
+          console.log(body);
+          done("Failed" + body);
+        }
+      })
+
+    });
+
   });
-});
