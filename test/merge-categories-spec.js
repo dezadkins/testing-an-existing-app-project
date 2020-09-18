@@ -25,11 +25,33 @@ describe("mergeCategories()", () => {
     });
 
     it("should return a single <li> for one category", () => {
-      expect.fail('please write this test');
+      let emptyArr = ['example'];
+      let result = mergeCategories(template,emptyArr,'li')
+
+      expect(result).include('<div>');
+      expect(result).include('</div>')
+      expect(result).include('<ul>')
+      expect(result).include('</ul>')
+      expect(result).include(`<li>${emptyArr[0]}</li>`)
+      expect(result).not.include('<!-- Content here -->')
     });
 
     it("should return an <li> for each category", () => {
-      expect.fail('please write this test');
+      let cat = ['test1','test2','test3']
+
+      let result = mergeCategories(template,cat,'li')
+
+      expect(result).include('<div>');
+      expect(result).include('</div>')
+      expect(result).include('<ul>')
+      expect(result).include('</ul>')
+
+      expect(result).include(`<li>${cat[0]}</li>`)
+      expect(result).include(`<li>${cat[1]}</li>`)
+      expect(result).include(`<li>${cat[2]}</li>`)
+
+      expect(result).not.include('<!-- Content here -->')
+
     });
   });
 
